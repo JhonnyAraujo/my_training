@@ -1,28 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:my_training/feature/criar_treino/models/treino_model.dart';
+import 'package:my_training/feature/criar_treino/view_models/home_view_model.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    HomeViewModel viewModel = HomeViewModel();
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: ListView(
-            children: [
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 25),
-                  child: Text('Treino 1', textAlign: TextAlign.center),
-                ),
-              ),
-            ],
+          child: Observer(
+            builder: (_) {
+              return ListView.builder(
+                itemCount: viewModel.treinos.length,
+                itemBuilder: (_, index) {
+                  TreinoModel treino = viewModel.treinos[index];
+                  return Card(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 25),
+                      child: Text(treino.name, textAlign: TextAlign.center),
+                    ),
+                  );
+                },
+              );
+            },
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: viewModel.adicionaTreino,
         label: Text('Criar um treino'),
         icon: Icon(Icons.add),
       ),
