@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_training/feature/criar_treino/home_view.dart';
+import 'package:my_training/feature/criar_treino/views/home_view.dart';
 
 void main() {
   runApp(const MyApp());
