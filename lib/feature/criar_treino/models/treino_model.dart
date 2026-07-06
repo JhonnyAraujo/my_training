@@ -3,9 +3,5 @@ class TreinoModel {
   final int interval;
   final List exercises;
 
-  TreinoModel({
-    required this.name,
-    required this.interval,
-    required this.exercises,
-  });
+  TreinoModel({this.name = '', this.interval = 60, this.exercises = const []});
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_training/feature/criar_treino/models/treino_model.dart';
 import 'package:my_training/feature/criar_treino/view_models/home_view_model.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:my_training/feature/criar_treino/views/criar_treino_view.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -33,8 +34,11 @@ class HomeView extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: viewModel.adicionaTreino,
-        label: Text('Criar um treino'),
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => CriarTreinoView()),
+        ),
+        label: const Text('Criar um treino'),
         icon: Icon(Icons.add),
       ),
     );
