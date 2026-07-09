@@ -34,10 +34,13 @@ class HomeView extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => CriarTreinoView()),
-        ),
+        onPressed: () async {
+          TreinoModel novoTreino = await Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => CriarTreinoView()),
+          );
+          viewModel.adicionaTreino(novoTreino: novoTreino);
+        },
         label: const Text('Criar um treino'),
         icon: Icon(Icons.add),
       ),

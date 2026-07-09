@@ -33,12 +33,12 @@ mixin _$HomeViewModel on _HomeViewModelBase, Store {
   );
 
   @override
-  void adicionaTreino() {
+  void adicionaTreino({required TreinoModel novoTreino}) {
     final _$actionInfo = _$_HomeViewModelBaseActionController.startAction(
       name: '_HomeViewModelBase.adicionaTreino',
     );
     try {
-      return super.adicionaTreino();
+      return super.adicionaTreino(novoTreino: novoTreino);
     } finally {
       _$_HomeViewModelBaseActionController.endAction(_$actionInfo);
     }

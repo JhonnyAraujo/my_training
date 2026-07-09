@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:my_training/feature/criar_treino/models/treino_model.dart';
 
 class CriarTreinoView extends StatefulWidget {
   const CriarTreinoView({super.key});
@@ -9,16 +9,19 @@ class CriarTreinoView extends StatefulWidget {
 }
 
 class _CriarTreinoViewState extends State<CriarTreinoView> {
-  int maisExercicio = 1;
+  final List<String> listaExercicios = [];
 
   final TextEditingController nomeTreinoController = TextEditingController();
   final TextEditingController intervaloTreinoController =
+      TextEditingController();
+  final TextEditingController exercicioTreinoController =
       TextEditingController();
 
   @override
   void dispose() {
     nomeTreinoController.dispose();
     intervaloTreinoController.dispose();
+    exercicioTreinoController.dispose();
     super.dispose();
   }
 
@@ -42,7 +45,7 @@ class _CriarTreinoViewState extends State<CriarTreinoView> {
               ),
               TextField(
                 controller: intervaloTreinoController,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Intervalo',
@@ -51,12 +54,27 @@ class _CriarTreinoViewState extends State<CriarTreinoView> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: maisExercicio + 1,
+                  itemCount: listaExercicios.length + 2,
                   itemBuilder: (_, index) {
-                    if (index <= (maisExercicio - 1)) {
+                    if (index < listaExercicios.length) {
+                      return Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 15,
+                          vertical: 18,
+                        ),
+                        margin: EdgeInsets.only(bottom: 10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          shape: BoxShape.rectangle,
+                          border: BoxBorder.all(color: Colors.black54),
+                        ),
+                        child: Text(listaExercicios[index]),
+                      );
+                    } else if (index == listaExercicios.length) {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: TextField(
+                          controller: exercicioTreinoController,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: 'Nome do exercicio',
@@ -70,9 +88,19 @@ class _CriarTreinoViewState extends State<CriarTreinoView> {
                         children: [
                           Expanded(child: Divider()),
                           IconButton.filled(
-                            onPressed: () => setState(() {
-                              maisExercicio++;
-                            }),
+                            onPressed: () {
+                              final nomeExercicio =
+                                  exercicioTreinoController.text;
+
+                              if (nomeExercicio.isEmpty) {
+                                return;
+                              }
+
+                              setState(() {
+                                listaExercicios.add(nomeExercicio);
+                                exercicioTreinoController.clear();
+                              });
+                            },
                             icon: Icon(Icons.add),
                           ),
                           Expanded(child: Divider()),
@@ -91,7 +119,16 @@ class _CriarTreinoViewState extends State<CriarTreinoView> {
                       borderRadius: BorderRadius.circular(4),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    final TreinoModel novoTreino = TreinoModel(
+                      name: nomeTreinoController.text,
+                      interval:
+                          int.tryParse(intervaloTreinoController.text) ?? 0,
+                      exercises: listaExercicios,
+                    );
+
+                    Navigator.pop(context, novoTreino);
+                  },
                   child: Text('Criar'),
                 ),
               ),

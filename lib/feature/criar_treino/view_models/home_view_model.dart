@@ -11,9 +11,7 @@ abstract class _HomeViewModelBase with Store {
   ObservableList get treinos => _treinos;
 
   @action
-  void adicionaTreino() {
-    _treinos.add(
-      TreinoModel(name: 'Treino 1', interval: 60, exercises: List.empty()),
-    );
+  void adicionaTreino({required TreinoModel novoTreino}) {
+    _treinos.add(novoTreino);
   }
 }
