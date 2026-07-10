@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:my_training/feature/criar_treino/models/treino_model.dart';
 
-class CriarTreinoView extends StatefulWidget {
-  const CriarTreinoView({super.key});
+class CriarTreinoPage extends StatefulWidget {
+  const CriarTreinoPage({super.key});
 
   @override
-  State<CriarTreinoView> createState() => _CriarTreinoViewState();
+  State<CriarTreinoPage> createState() => _CriarTreinoPageState();
 }
 
-class _CriarTreinoViewState extends State<CriarTreinoView> {
+class _CriarTreinoPageState extends State<CriarTreinoPage> {
   final List<String> listaExercicios = [];
 
   final TextEditingController nomeTreinoController = TextEditingController();

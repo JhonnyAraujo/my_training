@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_training/feature/criar_treino/views/home_view.dart';
+import 'package:my_training/feature/criar_treino/pages/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'My Training',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: const HomeView(),
+      home: const HomePage(),
     );
   }
 }
