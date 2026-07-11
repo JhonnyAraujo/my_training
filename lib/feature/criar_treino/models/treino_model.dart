@@ -3,5 +3,23 @@ class TreinoModel {
   final int interval;
   final List<String> exercises;
 
-  TreinoModel({this.name = '', this.interval = 60, this.exercises = const []});
+  TreinoModel({
+    required this.name,
+    required this.interval,
+    required this.exercises,
+  });
+
+  Map<String, dynamic> toJson() => {
+    'name': name,
+    'interval': interval,
+    'exercises': exercises,
+  };
+
+  factory TreinoModel.fromJson(Map<String, dynamic> json) {
+    return TreinoModel(
+      name: json['name'],
+      interval: json['interval'],
+      exercises: json['exercises'],
+    );
+  }
 }
