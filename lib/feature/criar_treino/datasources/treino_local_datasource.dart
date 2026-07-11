@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class TreinoLocalDatasource {
   final SharedPreferencesAsync asyncPrefs = SharedPreferencesAsync();
 
-  void salvarTreino({required List<TreinoModel> treinos}) async {
+  Future<void> salvarTreino({required List<TreinoModel> treinos}) async {
     final jsonList = treinos.map((treino) => treino.toJson()).toList();
 
     await asyncPrefs.setString('treinos', jsonEncode(jsonList));
