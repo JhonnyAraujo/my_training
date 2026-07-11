@@ -20,10 +20,24 @@ class HomePage extends StatelessWidget {
               itemCount: controller.treinos.length,
               itemBuilder: (_, index) {
                 TreinoModel treino = controller.treinos[index];
-                return Card(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 25),
-                    child: Text(treino.name, textAlign: TextAlign.center),
+                return Dismissible(
+                  key: ValueKey('${treino.name}-$index'),
+                  onDismissed: (_) {
+                    controller.treinos.removeAt(index);
+                  },
+                  background: Container(
+                    color: Colors.red,
+                    child: Icon(Icons.remove),
+                  ),
+
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Card(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 25),
+                        child: Text(treino.name, textAlign: TextAlign.center),
+                      ),
+                    ),
                   ),
                 );
               },
