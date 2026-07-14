@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_training/feature/criar_treino/models/treino_model.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:my_training/feature/criar_treino/controller/criar_treino_controller.dart';
 
 class CriarTreinoPage extends StatefulWidget {
   const CriarTreinoPage({super.key});
@@ -9,7 +10,7 @@ class CriarTreinoPage extends StatefulWidget {
 }
 
 class _CriarTreinoPageState extends State<CriarTreinoPage> {
-  final List<String> listaExercicios = [];
+  final CriarTreinoController controller = CriarTreinoController();
 
   final TextEditingController nomeTreinoController = TextEditingController();
   final TextEditingController intervaloTreinoController =
@@ -52,64 +53,60 @@ class _CriarTreinoPageState extends State<CriarTreinoPage> {
                   hintText: 'Quantos minutos de intervalo?',
                 ),
               ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: listaExercicios.length + 2,
-                  itemBuilder: (_, index) {
-                    if (index < listaExercicios.length) {
-                      return Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 18,
-                        ),
-                        margin: EdgeInsets.only(bottom: 10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          shape: BoxShape.rectangle,
-                          border: BoxBorder.all(color: Colors.black54),
-                        ),
-                        child: Text(listaExercicios[index]),
-                      );
-                    } else if (index == listaExercicios.length) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: TextField(
-                          controller: exercicioTreinoController,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'Nome do exercicio',
-                            hintText: 'Ex: Flexão',
+              Obx(() {
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: controller.exercises.length + 2,
+                    itemBuilder: (_, index) {
+                      if (index < controller.exercises.length) {
+                        return Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 15,
+                            vertical: 18,
                           ),
-                        ),
-                      );
-                    } else {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(child: Divider()),
-                          IconButton.filled(
-                            onPressed: () {
-                              final nomeExercicio =
-                                  exercicioTreinoController.text;
+                          margin: EdgeInsets.only(bottom: 10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            shape: BoxShape.rectangle,
+                            border: BoxBorder.all(color: Colors.black54),
+                          ),
+                          child: Text(controller.exercises[index]),
+                        );
+                      } else if (index == controller.exercises.length) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: TextField(
+                            controller: exercicioTreinoController,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Nome do exercicio',
+                              hintText: 'Ex: Flexão',
+                            ),
+                          ),
+                        );
+                      } else {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(child: Divider()),
+                            IconButton.filled(
+                              onPressed: () {
+                                controller.adicionaExercicio(
+                                  nomeExercicio: exercicioTreinoController.text,
+                                );
 
-                              if (nomeExercicio.isEmpty) {
-                                return;
-                              }
-
-                              setState(() {
-                                listaExercicios.add(nomeExercicio);
                                 exercicioTreinoController.clear();
-                              });
-                            },
-                            icon: Icon(Icons.add),
-                          ),
-                          Expanded(child: Divider()),
-                        ],
-                      );
-                    }
-                  },
-                ),
-              ),
+                              },
+                              icon: Icon(Icons.add),
+                            ),
+                            Expanded(child: Divider()),
+                          ],
+                        );
+                      }
+                    },
+                  ),
+                );
+              }),
               SizedBox(
                 height: 62,
                 width: double.infinity,
@@ -120,14 +117,13 @@ class _CriarTreinoPageState extends State<CriarTreinoPage> {
                     ),
                   ),
                   onPressed: () {
-                    final TreinoModel novoTreino = TreinoModel(
+                    controller.criarTreino(
                       name: nomeTreinoController.text,
                       interval:
                           int.tryParse(intervaloTreinoController.text) ?? 0,
-                      exercises: listaExercicios,
                     );
 
-                    Navigator.pop(context, novoTreino);
+                    Navigator.pop(context);
                   },
                   child: Text('Criar'),
                 ),

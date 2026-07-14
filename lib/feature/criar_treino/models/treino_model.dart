@@ -1,7 +1,7 @@
 class TreinoModel {
   final String name;
   final int interval;
-  final List<String> exercises;
+  final List<dynamic> exercises;
 
   TreinoModel({
     required this.name,

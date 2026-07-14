@@ -4,13 +4,24 @@ import 'package:my_training/feature/criar_treino/models/treino_model.dart';
 import 'package:my_training/feature/criar_treino/controller/home_controller.dart';
 import 'package:my_training/feature/criar_treino/pages/criar_treino_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    HomeController controller = HomeController();
+  State<HomePage> createState() => _HomePageState();
+}
 
+class _HomePageState extends State<HomePage> {
+  HomeController controller = HomeController();
+
+  @override
+  void initState() {
+    controller.buscarTreino();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -47,11 +58,12 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          TreinoModel novoTreino = await Navigator.push(
+          await Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => CriarTreinoPage()),
           );
-          controller.adicionaTreino(novoTreino: novoTreino);
+
+          controller.buscarTreino();
         },
         label: const Text('Criar um treino'),
         icon: Icon(Icons.add),
