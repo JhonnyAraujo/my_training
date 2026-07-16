@@ -4,26 +4,38 @@ import 'package:my_training/feature/criar_treino/models/treino_model.dart';
 import 'package:my_training/feature/criar_treino/controller/home_controller.dart';
 import 'package:my_training/feature/criar_treino/pages/criar_treino_page.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key, required this.controller});
+
+  final HomeController controller;
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+  @override
+  void initState() {
+    widget.controller.buscarTreino();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    HomeController controller = HomeController();
-
     return Scaffold(
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Obx(() {
             return ListView.builder(
-              itemCount: controller.treinos.length,
+              itemCount: widget.controller.treinos.length,
               itemBuilder: (_, index) {
-                TreinoModel treino = controller.treinos[index];
+                TreinoModel treino = widget.controller.treinos[index];
                 return Dismissible(
-                  key: ValueKey('${treino.name}-$index'),
+                  key: ValueKey(treino.id),
                   onDismissed: (_) {
-                    controller.treinos.removeAt(index);
+                    widget.controller.removeTreino(id: treino.id);
                   },
                   background: Container(
                     color: Colors.red,
@@ -47,11 +59,12 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          TreinoModel novoTreino = await Navigator.push(
+          await Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => CriarTreinoPage()),
           );
-          controller.adicionaTreino(novoTreino: novoTreino);
+
+          await widget.controller.buscarTreino();
         },
         label: const Text('Criar um treino'),
         icon: Icon(Icons.add),

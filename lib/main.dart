@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_training/feature/criar_treino/controller/home_controller.dart';
 import 'package:my_training/feature/criar_treino/pages/home_page.dart';
 
 void main() {
@@ -10,11 +11,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final HomeController controller = HomeController();
+
     return MaterialApp(
       title: 'My Training',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: const HomePage(),
+      home: HomePage(controller: controller),
     );
   }
 }
