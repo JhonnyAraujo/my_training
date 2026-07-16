@@ -19,4 +19,12 @@ class TreinoLocalDatasource {
     final decoded = jsonDecode(jsonString) as List;
     return decoded.map((elemento) => TreinoModel.fromJson(elemento)).toList();
   }
+
+  Future<void> removeTreino({required int id}) async {
+    final treinos = await buscarTreinos();
+
+    treinos.removeWhere((treino) => treino.id == id);
+
+    await salvarTreino(treinos: treinos);
+  }
 } 

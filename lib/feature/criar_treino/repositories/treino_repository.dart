@@ -11,4 +11,8 @@ class TreinoRepository {
   Future<List<TreinoModel>> buscarTreinos() async {
     return await datasource.buscarTreinos();
   }
+
+  Future<void> removeTreino({required int id}) async {
+    await datasource.removeTreino(id: id);
+  }
 }

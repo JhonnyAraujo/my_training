@@ -12,4 +12,8 @@ class HomeController extends GetxController {
     treinos.clear();
     treinos.addAll(response);
   }
+  
+  Future<void> removeTreino({required int id}) async {
+    await _repository.removeTreino(id: id);
+  }
 }

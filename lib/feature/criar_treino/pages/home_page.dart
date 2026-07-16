@@ -33,9 +33,9 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (_, index) {
                 TreinoModel treino = widget.controller.treinos[index];
                 return Dismissible(
-                  key: ValueKey('${treino.name}-$index'),
+                  key: ValueKey(treino.id),
                   onDismissed: (_) {
-                    widget.controller.treinos.removeAt(index);
+                    widget.controller.removeTreino(id: treino.id);
                   },
                   background: Container(
                     color: Colors.red,
