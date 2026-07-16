@@ -19,4 +19,4 @@ class TreinoLocalDatasource {
     final decoded = jsonDecode(jsonString) as List;
     return decoded.map((elemento) => TreinoModel.fromJson(elemento)).toList();
   }
-}
+} 

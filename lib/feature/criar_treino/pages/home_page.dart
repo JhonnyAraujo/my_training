@@ -5,18 +5,19 @@ import 'package:my_training/feature/criar_treino/controller/home_controller.dart
 import 'package:my_training/feature/criar_treino/pages/criar_treino_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({super.key, required this.controller});
+
+  final HomeController controller;
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  HomeController controller = HomeController();
 
   @override
   void initState() {
-    controller.buscarTreino();
+    widget.controller.buscarTreino();
     super.initState();
   }
 
@@ -28,13 +29,13 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.all(8.0),
           child: Obx(() {
             return ListView.builder(
-              itemCount: controller.treinos.length,
+              itemCount: widget.controller.treinos.length,
               itemBuilder: (_, index) {
-                TreinoModel treino = controller.treinos[index];
+                TreinoModel treino = widget.controller.treinos[index];
                 return Dismissible(
                   key: ValueKey('${treino.name}-$index'),
                   onDismissed: (_) {
-                    controller.treinos.removeAt(index);
+                    widget.controller.treinos.removeAt(index);
                   },
                   background: Container(
                     color: Colors.red,
@@ -63,7 +64,7 @@ class _HomePageState extends State<HomePage> {
             MaterialPageRoute(builder: (_) => CriarTreinoPage()),
           );
 
-          controller.buscarTreino();
+          await widget.controller.buscarTreino();
         },
         label: const Text('Criar um treino'),
         icon: Icon(Icons.add),

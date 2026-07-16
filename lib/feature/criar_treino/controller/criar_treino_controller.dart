@@ -8,7 +8,7 @@ class CriarTreinoController extends GetxController {
   final RxList<String> _exercises = <String>[].obs;
   List<String> get exercises => _exercises;
 
-  void criarTreino({required String name, required int interval}) async {
+  Future<void> criarTreino({required String name, required int interval}) async {
     final TreinoModel novoTreino = TreinoModel(
       name: name,
       interval: interval,
@@ -16,10 +16,10 @@ class CriarTreinoController extends GetxController {
     );
     final treinos = await _repository.buscarTreinos();
     treinos.add(novoTreino);
-    _repository.salvarTreino(treinos: treinos);
+    await _repository.salvarTreino(treinos: treinos);
   }
 
-  void adicionaExercicio({required String nomeExercicio}) {
+  Future<void> adicionaExercicio({required String nomeExercicio}) async {
     if (nomeExercicio.isEmpty) return;
 
     _exercises.add(nomeExercicio);

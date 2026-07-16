@@ -116,14 +116,17 @@ class _CriarTreinoPageState extends State<CriarTreinoPage> {
                       borderRadius: BorderRadius.circular(4),
                     ),
                   ),
-                  onPressed: () {
-                    controller.criarTreino(
+                  onPressed: () async {
+                    final navigator = Navigator.of(context);
+
+                    await controller.criarTreino(
                       name: nomeTreinoController.text,
                       interval:
                           int.tryParse(intervaloTreinoController.text) ?? 0,
                     );
 
-                    Navigator.pop(context);
+                    if (!mounted) return;
+                    navigator.pop();
                   },
                   child: Text('Criar'),
                 ),
