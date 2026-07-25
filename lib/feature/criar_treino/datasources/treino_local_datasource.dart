@@ -11,7 +11,7 @@ class TreinoLocalDatasource {
       final jsonList = treinos.map((treino) => treino.toJson()).toList();
       await asyncPrefs.setString('treinos', jsonEncode(jsonList));
     } catch (_) {
-      throw Exception('Não foi possível salvar o treino');
+      throw Exception('Não foi possível criar o treino');
     }
   }
 

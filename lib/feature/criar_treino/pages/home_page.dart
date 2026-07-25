@@ -17,8 +17,16 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    widget.controller.buscarTreino();
+    buscarTreino();
     super.initState();
+  }
+
+  void buscarTreino() {
+    try {
+      widget.controller.buscarTreino();
+    } catch (exception) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(exception.toString())));
+    }
   }
 
   @override
@@ -35,7 +43,12 @@ class _HomePageState extends State<HomePage> {
                 return Dismissible(
                   key: ValueKey(treino.id),
                   onDismissed: (_) {
-                    widget.controller.removeTreino(id: treino.id);
+                    try {
+                      widget.controller.removeTreino(id: treino.id);
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Treino removido com sucesso!')));
+                    } catch (exception) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(exception.toString())));
+                    }
                   },
                   background: Container(
                     color: Colors.red,
@@ -64,7 +77,7 @@ class _HomePageState extends State<HomePage> {
             MaterialPageRoute(builder: (_) => CriarTreinoPage()),
           );
 
-          await widget.controller.buscarTreino();
+          buscarTreino();
         },
         label: const Text('Criar um treino'),
         icon: Icon(Icons.add),

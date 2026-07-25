@@ -9,7 +9,7 @@ class CriarTreinoController extends GetxController {
   List<String> get exercises => _exercises;
 
   Future<void> criarTreino({required String name, required int interval}) async {
-    final TreinoModel novoTreino = TreinoModel(
+      final TreinoModel novoTreino = TreinoModel(
       name: name,
       interval: interval,
       exercises: _exercises,

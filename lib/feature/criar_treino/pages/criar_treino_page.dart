@@ -117,16 +117,21 @@ class _CriarTreinoPageState extends State<CriarTreinoPage> {
                     ),
                   ),
                   onPressed: () async {
-                    final navigator = Navigator.of(context);
+                    try {
+                      final navigator = Navigator.of(context);
 
-                    await controller.criarTreino(
-                      name: nomeTreinoController.text,
-                      interval:
-                          int.tryParse(intervaloTreinoController.text) ?? 0,
-                    );
+                      await controller.criarTreino(
+                        name: nomeTreinoController.text,
+                        interval:
+                            int.tryParse(intervaloTreinoController.text) ?? 0,
+                      );
 
-                    if (!mounted) return;
-                    navigator.pop();
+                      if (!mounted) return;
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Treino criado com sucesso!')));
+                      navigator.pop();
+                    } catch (exception) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(exception.toString())));
+                    }
                   },
                   child: Text('Criar'),
                 ),
