@@ -1,19 +1,12 @@
 import 'dart:convert';
 
+import 'package:my_training/feature/criar_treino/datasources/criar_treino_datasource.dart';
 import 'package:my_training/feature/criar_treino/models/treino_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class TreinoLocalDatasource {
+class HomeDatasource {
   final SharedPreferencesAsync asyncPrefs = SharedPreferencesAsync();
-
-  Future<void> salvarTreino({required List<TreinoModel> treinos}) async {
-    try {
-      final jsonList = treinos.map((treino) => treino.toJson()).toList();
-      await asyncPrefs.setString('treinos', jsonEncode(jsonList));
-    } catch (_) {
-      throw Exception('Não foi possível criar o treino');
-    }
-  }
+  final CriarTreinoDatasource criarTreino = CriarTreinoDatasource();
 
   Future<List<TreinoModel>> buscarTreinos() async {
     try {
@@ -34,10 +27,10 @@ class TreinoLocalDatasource {
 
       treinos.removeWhere((treino) => treino.id == id);
 
-      await salvarTreino(treinos: treinos);
+      await criarTreino.salvarTreino(treinos: treinos);
     } catch (_) {
       throw Exception('Não foi possível remover o treino');
     }
     
   }
-} 
+}

@@ -1,9 +1,11 @@
 import 'package:get/get.dart';
 import 'package:my_training/feature/criar_treino/models/treino_model.dart';
-import 'package:my_training/feature/criar_treino/repositories/treino_repository.dart';
+import 'package:my_training/feature/criar_treino/repositories/criar_treino_repository.dart';
+import 'package:my_training/feature/home/repositories/home_repository.dart';
 
 class CriarTreinoController extends GetxController {
-  final TreinoRepository _repository = TreinoRepository();
+  final CriarTreinoRepository _repository = CriarTreinoRepository();
+  final HomeRepository _homeRepository = HomeRepository();
 
   final RxList<String> _exercises = <String>[].obs;
   List<String> get exercises => _exercises;
@@ -14,7 +16,7 @@ class CriarTreinoController extends GetxController {
       interval: interval,
       exercises: _exercises,
     );
-    final treinos = await _repository.buscarTreinos();
+    final treinos = await _homeRepository.buscarTreinos();
     treinos.add(novoTreino);
     await _repository.salvarTreino(treinos: treinos);
   }

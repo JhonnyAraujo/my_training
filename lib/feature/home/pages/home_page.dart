@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:my_training/feature/criar_treino/models/treino_model.dart';
-import 'package:my_training/feature/criar_treino/controller/home_controller.dart';
+import 'package:my_training/feature/home/controller/home_controller.dart';
 import 'package:my_training/feature/criar_treino/pages/criar_treino_page.dart';
 
 class HomePage extends StatefulWidget {

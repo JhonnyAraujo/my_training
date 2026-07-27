@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_training/feature/criar_treino/controller/home_controller.dart';
+import 'package:my_training/feature/home/controller/home_controller.dart';
 import 'package:my_training/feature/criar_treino/pages/home_page.dart';
 
 void main() {
