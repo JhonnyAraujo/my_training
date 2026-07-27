@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_training/feature/home/controller/home_controller.dart';
-import 'package:my_training/feature/criar_treino/pages/home_page.dart';
+import 'package:my_training/feature/home/pages/home_page.dart';
 
 void main() {
   runApp(const MyApp());
