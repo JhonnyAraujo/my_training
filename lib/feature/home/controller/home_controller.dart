@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import 'package:my_training/feature/criar_treino/models/treino_model.dart';
-import 'package:my_training/feature/criar_treino/repositories/treino_repository.dart';
+import 'package:my_training/feature/home/repositories/home_repository.dart';
 
 class HomeController extends GetxController {
-  final TreinoRepository _repository = TreinoRepository();
+  final HomeRepository _repository = HomeRepository();
 
   final RxList<TreinoModel> treinos = <TreinoModel>[].obs;
 
