@@ -5,7 +5,7 @@ import 'package:my_training/feature/criar_treino/repositories/criar_treino_repos
 import 'package:my_training/feature/home/repositories/home_repository.dart';
 
 class CriarTreinoController extends GetxController {
-  CriarTreinoController({required this._repository});
+  CriarTreinoController({required this._repository, required this._homeRepository});
 
   final TextEditingController nomeTreinoController = TextEditingController();
   final TextEditingController intervaloTreinoController = TextEditingController();
@@ -20,7 +20,7 @@ class CriarTreinoController extends GetxController {
   }
 
   final CriarTreinoRepository _repository;
-  final HomeRepository _homeRepository = HomeRepository();
+  final HomeRepository _homeRepository;
 
   final RxList<String> _exercises = <String>[].obs;
   List<String> get exercises => _exercises;
