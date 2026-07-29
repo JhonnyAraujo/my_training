@@ -1,11 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:my_training/core/models/treino_model.dart';
-import 'package:my_training/feature/criar_treino/repositories/criar_treino_repository.dart';
-import 'package:my_training/feature/home/repositories/home_repository.dart';
+import 'package:my_training/core/repositories/treino_repository.dart';
 
 class CriarTreinoController extends GetxController {
-  CriarTreinoController({required this._repository, required this._homeRepository});
+  CriarTreinoController({required this._repository});
 
   final TextEditingController nomeTreinoController = TextEditingController();
   final TextEditingController intervaloTreinoController = TextEditingController();
@@ -19,8 +18,7 @@ class CriarTreinoController extends GetxController {
     super.onClose();
   }
 
-  final CriarTreinoRepository _repository;
-  final HomeRepository _homeRepository;
+  final ITreinoRepository _repository;
 
   final RxList<String> _exercises = <String>[].obs;
   List<String> get exercises => _exercises;
@@ -31,7 +29,7 @@ class CriarTreinoController extends GetxController {
       interval: interval,
       exercises: _exercises,
     );
-    final treinos = await _homeRepository.buscarTreinos();
+    final treinos = await _repository.buscarTreinos();
     treinos.add(novoTreino);
     await _repository.salvarTreino(treinos: treinos);
   }

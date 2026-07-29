@@ -1,15 +1,15 @@
 import 'package:get/instance_manager.dart';
 import 'package:my_training/feature/home/controller/home_controller.dart';
-import 'package:my_training/feature/home/datasources/home_datasource.dart';
-import 'package:my_training/feature/home/repositories/home_repository.dart';
+import 'package:my_training/core/datasources/treino_datasource.dart';
+import 'package:my_training/core/repositories/treino_repository.dart';
 
 class HomeBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<HomeDatasource>(() => HomeDatasource());
+    Get.lazyPut<TreinoDatasource>(() => TreinoDatasource());
 
-    Get.lazyPut<HomeRepository>(() => HomeRepository(datasource: Get.find<HomeDatasource>()));
+    Get.lazyPut<TreinoRepository>(() => TreinoRepository(datasource: Get.find<TreinoDatasource>()));
 
-    Get.lazyPut<HomeController>(() => HomeController(repository: Get.find<HomeRepository>()));
+    Get.lazyPut<HomeController>(() => HomeController(repository: Get.find<TreinoRepository>()));
   }
 }
