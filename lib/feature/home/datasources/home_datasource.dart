@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:my_training/feature/criar_treino/datasources/criar_treino_datasource.dart';
-import 'package:my_training/feature/criar_treino/models/treino_model.dart';
+import 'package:my_training/core/models/treino_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class IHomeDatasouce {

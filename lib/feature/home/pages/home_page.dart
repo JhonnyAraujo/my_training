@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_training/feature/criar_treino/models/treino_model.dart';
+import 'package:my_training/core/models/treino_model.dart';
 import 'package:my_training/feature/criar_treino/pages/criar_treino_page.dart';
 import 'package:my_training/feature/home/controller/home_controller.dart';
 

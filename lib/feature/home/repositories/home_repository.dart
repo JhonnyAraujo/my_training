@@ -1,4 +1,4 @@
-import 'package:my_training/feature/criar_treino/models/treino_model.dart';
+import 'package:my_training/core/models/treino_model.dart';
 import 'package:my_training/feature/home/datasources/home_datasource.dart';
 
 class HomeRepository {
