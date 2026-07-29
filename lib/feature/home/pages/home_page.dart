@@ -1,33 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get.dart';
 import 'package:my_training/feature/criar_treino/models/treino_model.dart';
-import 'package:my_training/feature/home/controller/home_controller.dart';
 import 'package:my_training/feature/criar_treino/pages/criar_treino_page.dart';
+import 'package:my_training/feature/home/controller/home_controller.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.controller});
-
-  final HomeController controller;
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-
-  @override
-  void initState() {
-    buscarTreino();
-    super.initState();
-  }
-
-  void buscarTreino() {
-    try {
-      widget.controller.buscarTreino();
-    } catch (exception) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(exception.toString())));
-    }
-  }
+class HomePage extends GetView<HomeController> {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +15,14 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.all(8.0),
           child: Obx(() {
             return ListView.builder(
-              itemCount: widget.controller.treinos.length,
+              itemCount: controller.treinos.length,
               itemBuilder: (_, index) {
-                TreinoModel treino = widget.controller.treinos[index];
+                TreinoModel treino = controller.treinos[index];
                 return Dismissible(
                   key: ValueKey(treino.id),
                   onDismissed: (_) {
                     try {
-                      widget.controller.removeTreino(id: treino.id);
+                      controller.removeTreino(id: treino.id);
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Treino removido com sucesso!')));
                     } catch (exception) {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(exception.toString())));
@@ -72,12 +50,13 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          await Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => CriarTreinoPage()),
-          );
+          try {
+            await Get.to(const CriarTreinoPage());
 
-          buscarTreino();
+            controller.buscarTreino();
+          } catch (exception) {
+            Get.snackbar('Error', exception.toString());
+          }
         },
         label: const Text('Criar um treino'),
         icon: Icon(Icons.add),
