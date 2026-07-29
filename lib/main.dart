@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:my_training/feature/home/binding/home_binding.dart';
 import 'package:my_training/feature/home/pages/home_page.dart';
 
 void main() {
@@ -11,10 +13,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'My Training',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
+      initialBinding: HomeBinding(),
       home: const HomePage(),
     );
   }

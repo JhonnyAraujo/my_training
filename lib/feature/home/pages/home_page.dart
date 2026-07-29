@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_training/core/models/treino_model.dart';
+import 'package:my_training/feature/criar_treino/binding/criar_treino_binding.dart';
 import 'package:my_training/feature/criar_treino/pages/criar_treino_page.dart';
 import 'package:my_training/feature/home/controller/home_controller.dart';
 
@@ -23,9 +24,9 @@ class HomePage extends GetView<HomeController> {
                   onDismissed: (_) {
                     try {
                       controller.removeTreino(id: treino.id);
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Treino removido com sucesso!')));
+                      Get.snackbar('Sucesso', 'Treino removido com sucesso!');
                     } catch (exception) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(exception.toString())));
+                      Get.snackbar('Error', exception.toString());
                     }
                   },
                   background: Container(
@@ -51,7 +52,7 @@ class HomePage extends GetView<HomeController> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           try {
-            await Get.to(const CriarTreinoPage());
+            await Get.to(const CriarTreinoPage(), binding: CriarTreinoBinding());
 
             controller.buscarTreino();
           } catch (exception) {
