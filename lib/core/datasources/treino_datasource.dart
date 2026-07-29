@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'package:my_training/core/models/treino_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class IHomeDatasouce {
+abstract class ITreinoDatasource {
   Future<List<TreinoModel>> buscarTreinos();
   Future<void> removeTreino({required int id});
   Future<void> salvarTreino({required List<TreinoModel> treinos});
 }
 
-class TreinoDatasource implements IHomeDatasouce {
+class TreinoDatasource implements ITreinoDatasource {
   final SharedPreferencesAsync asyncPrefs = SharedPreferencesAsync();
 
   @override

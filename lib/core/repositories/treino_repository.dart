@@ -9,7 +9,7 @@ abstract class ITreinoRepository {
 
 class TreinoRepository implements ITreinoRepository{
   const TreinoRepository({required this.datasource});
-  final TreinoDatasource datasource;
+  final ITreinoDatasource datasource;
 
   @override
   Future<List<TreinoModel>> buscarTreinos() async {
