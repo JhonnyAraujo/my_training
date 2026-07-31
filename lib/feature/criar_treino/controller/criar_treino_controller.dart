@@ -6,6 +6,7 @@ import 'package:my_training/core/repositories/treino_repository.dart';
 class CriarTreinoController extends GetxController {
   CriarTreinoController({required this._repository});
 
+  final ITreinoRepository _repository;
   final TextEditingController nomeTreinoController = TextEditingController();
   final TextEditingController intervaloTreinoController = TextEditingController();
   final TextEditingController exercicioTreinoController = TextEditingController();
@@ -17,8 +18,6 @@ class CriarTreinoController extends GetxController {
     exercicioTreinoController.dispose();
     super.onClose();
   }
-
-  final ITreinoRepository _repository;
 
   final RxList<String> _exercises = <String>[].obs;
   List<String> get exercises => _exercises;
