@@ -1,30 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get.dart';
 import 'package:my_training/feature/criar_treino/controller/criar_treino_controller.dart';
 
-class CriarTreinoPage extends StatefulWidget {
+class CriarTreinoPage extends GetView<CriarTreinoController> {
   const CriarTreinoPage({super.key});
-
-  @override
-  State<CriarTreinoPage> createState() => _CriarTreinoPageState();
-}
-
-class _CriarTreinoPageState extends State<CriarTreinoPage> {
-  final CriarTreinoController controller = CriarTreinoController();
-
-  final TextEditingController nomeTreinoController = TextEditingController();
-  final TextEditingController intervaloTreinoController =
-      TextEditingController();
-  final TextEditingController exercicioTreinoController =
-      TextEditingController();
-
-  @override
-  void dispose() {
-    nomeTreinoController.dispose();
-    intervaloTreinoController.dispose();
-    exercicioTreinoController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +16,7 @@ class _CriarTreinoPageState extends State<CriarTreinoPage> {
             spacing: 10,
             children: [
               TextField(
-                controller: nomeTreinoController,
+                controller: controller.nomeTreinoController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Nome do treino',
@@ -45,7 +24,7 @@ class _CriarTreinoPageState extends State<CriarTreinoPage> {
                 ),
               ),
               TextField(
-                controller: intervaloTreinoController,
+                controller: controller.intervaloTreinoController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -76,7 +55,7 @@ class _CriarTreinoPageState extends State<CriarTreinoPage> {
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 10),
                           child: TextField(
-                            controller: exercicioTreinoController,
+                            controller: controller.exercicioTreinoController,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: 'Nome do exercicio',
@@ -92,10 +71,10 @@ class _CriarTreinoPageState extends State<CriarTreinoPage> {
                             IconButton.filled(
                               onPressed: () {
                                 controller.adicionaExercicio(
-                                  nomeExercicio: exercicioTreinoController.text,
+                                  nomeExercicio: controller.exercicioTreinoController.text,
                                 );
 
-                                exercicioTreinoController.clear();
+                                controller.exercicioTreinoController.clear();
                               },
                               icon: Icon(Icons.add),
                             ),
@@ -118,19 +97,17 @@ class _CriarTreinoPageState extends State<CriarTreinoPage> {
                   ),
                   onPressed: () async {
                     try {
-                      final navigator = Navigator.of(context);
-
                       await controller.criarTreino(
-                        name: nomeTreinoController.text,
+                        name: controller.nomeTreinoController.text,
                         interval:
-                            int.tryParse(intervaloTreinoController.text) ?? 0,
+                            int.tryParse(controller.intervaloTreinoController.text) ?? 0,
                       );
-
-                      if (!mounted) return;
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Treino criado com sucesso!')));
-                      navigator.pop();
+                  
+                      Get.back();
+                      
+                      Get.snackbar('Sucesso', 'Treino criado com sucesso!');
                     } catch (exception) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(exception.toString())));
+                      Get.snackbar('Error', exception.toString());
                     }
                   },
                   child: Text('Criar'),
