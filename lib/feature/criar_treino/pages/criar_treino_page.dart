@@ -103,9 +103,9 @@ class CriarTreinoPage extends GetView<CriarTreinoController> {
                             int.tryParse(controller.intervaloTreinoController.text) ?? 0,
                       );
                   
-                      Get.snackbar('Sucesso', 'Treino criado com sucesso!');
-
                       Get.back();
+                      
+                      Get.snackbar('Sucesso', 'Treino criado com sucesso!');
                     } catch (exception) {
                       Get.snackbar('Error', exception.toString());
                     }
