@@ -22,7 +22,7 @@ void main() {
         when(() => mockDatasource.buscarTreinos()).thenAnswer((_) async => [treino]);
 
       // Act
-        final result = await repository.buscarTreinos();
+        final List<TreinoModel> result = await repository.buscarTreinos();
 
       // Assert
         verify(() => mockDatasource.buscarTreinos()).called(1);
