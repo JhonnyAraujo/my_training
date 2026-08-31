@@ -64,7 +64,7 @@ void main() {
         expect(find.text('Treino de Peito'), findsOneWidget); 
     });
 
-    testWidgets('deve exibir botao de criar treino na tela', (WidgetTester tester) async {
+    testWidgets('deve remover o treino da tela ao arrastar o card para o lado', (WidgetTester tester) async {
       // Arrange
         TreinoModel treino = TreinoModel(id: 1, name: 'Treino de Peito', interval: 60, exercises: ['Supino reto']);
 
