@@ -56,14 +56,12 @@ class HomePage extends GetView<HomeController> {
 
                         child: SizedBox(
                           width: double.infinity,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: AppColors.neutral[800],
+                          child: Card(
+                            margin: EdgeInsets.zero,
+                            shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                color: AppColors.neutral[700]!
-                              )
-                            ),
+                              side: BorderSide(color: AppColors.neutral[700]!)
+                            ),    
                             child: Padding(
                               padding: const EdgeInsets.all(AppDimensions.medium),
                               child: Column(

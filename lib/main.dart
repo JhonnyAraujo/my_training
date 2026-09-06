@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_training/core/theme/app_theme.dart';
 import 'package:my_training/feature/home/binding/home_binding.dart';
 import 'package:my_training/feature/home/pages/home_page.dart';
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'My Training',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
+      theme: AppTheme.darkTheme,
       initialBinding: HomeBinding(),
       home: const HomePage(),
     );
