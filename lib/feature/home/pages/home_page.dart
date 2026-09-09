@@ -12,21 +12,25 @@ class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('My Training', style: display), shape: Border(bottom: BorderSide(color: AppColors.neutral[800]!)),),
+      appBar: AppBar(
+        title: Text('My Training', style: display),
+        shape: Border(bottom: BorderSide(color: AppColors.neutral[800]!)),
+      ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: AppDimensions.medium),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: AppDimensions.largeExtra),
-              Text('Seus Treinos', style: tituloLarge,),
+              Text('Seus Treinos', style: tituloLarge),
               const SizedBox(height: AppDimensions.smallExtra),
               Expanded(
                 child: Obx(() {
                   return ListView.separated(
                     itemCount: controller.treinos.length,
-                    separatorBuilder: (_, _) => const SizedBox(height: AppDimensions.medium),
+                    separatorBuilder: (_, _) =>
+                        const SizedBox(height: AppDimensions.medium),
                     itemBuilder: (_, index) {
                       TreinoModel treino = controller.treinos[index];
                       return Dismissible(
@@ -34,10 +38,13 @@ class HomePage extends GetView<HomeController> {
                         onDismissed: (_) {
                           try {
                             controller.removeTreino(id: treino.id);
-                            Get.snackbar('Sucesso', 'Treino removido com sucesso!');
+                            Get.snackbar(
+                              'Sucesso',
+                              'Treino removido com sucesso!',
+                            );
                           } catch (exception) {
                             Get.snackbar('Error', exception.toString());
-                          }  
+                          }
                         },
                         background: Container(
                           padding: const EdgeInsets.all(16),
@@ -60,10 +67,12 @@ class HomePage extends GetView<HomeController> {
                             margin: EdgeInsets.zero,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
-                              side: BorderSide(color: AppColors.neutral[700]!)
-                            ),    
+                              side: BorderSide(color: AppColors.neutral[700]!),
+                            ),
                             child: Padding(
-                              padding: const EdgeInsets.all(AppDimensions.medium),
+                              padding: const EdgeInsets.all(
+                                AppDimensions.medium,
+                              ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 spacing: AppDimensions.small,
@@ -88,15 +97,21 @@ class HomePage extends GetView<HomeController> {
         backgroundColor: AppColors.primary,
         onPressed: () async {
           try {
-            await Get.to(const CriarTreinoPage(), binding: CriarTreinoBinding());
+            await Get.to(
+              const CriarTreinoPage(),
+              binding: CriarTreinoBinding(),
+            );
 
             controller.buscarTreino();
           } catch (exception) {
             Get.snackbar('Error', exception.toString());
           }
         },
-        label: Text('Criar um treino', style: body.copyWith(color: AppColors.neutral[900])),
-        icon: Icon(Icons.add, color: AppColors.neutral[900],),
+        label: Text(
+          'Criar um treino',
+          style: body.copyWith(color: AppColors.neutral[900]),
+        ),
+        icon: Icon(Icons.add, color: AppColors.neutral[900]),
       ),
     );
   }
