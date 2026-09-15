@@ -4,6 +4,7 @@ import 'package:my_training/core/models/treino_model.dart';
 import 'package:my_training/core/theme/theme.dart';
 import 'package:my_training/feature/criar_treino/binding/criar_treino_binding.dart';
 import 'package:my_training/feature/criar_treino/pages/criar_treino_page.dart';
+import 'package:my_training/feature/detail_treino/pages/detail_treino_page.dart';
 import 'package:my_training/feature/home/controller/home_controller.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -63,23 +64,30 @@ class HomePage extends GetView<HomeController> {
 
                         child: SizedBox(
                           width: double.infinity,
-                          child: Card(
-                            margin: EdgeInsets.zero,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              side: BorderSide(color: AppColors.neutral[700]!),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(
-                                AppDimensions.medium,
+                          child: InkWell(
+                            onTap: () {
+                              Get.to(const DetailTreinoPage());
+                            },
+                            child: Card(
+                              margin: EdgeInsets.zero,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                side: BorderSide(
+                                  color: AppColors.neutral[700]!,
+                                ),
                               ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                spacing: AppDimensions.small,
-                                children: [
-                                  Text(treino.name, style: tituloMedio),
-                                  Text('6 Exercicios', style: body),
-                                ],
+                              child: Padding(
+                                padding: const EdgeInsets.all(
+                                  AppDimensions.medium,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  spacing: AppDimensions.small,
+                                  children: [
+                                    Text(treino.name, style: tituloMedio),
+                                    Text('6 Exercicios', style: body),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
