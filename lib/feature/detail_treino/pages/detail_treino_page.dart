@@ -35,6 +35,7 @@ class DetailTreinoPage extends GetView {
                     SizedBox(
                       width: double.infinity,
                       child: Card(
+                        key: const Key('card_exercices'),
                         shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                               side: BorderSide(color: AppColors.primary),
@@ -49,6 +50,7 @@ class DetailTreinoPage extends GetView {
                       ),
                     ),
                     Card(
+                      key: const Key('card_interval'),
                       shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                               side: BorderSide(color: AppColors.neutral[700]!),
