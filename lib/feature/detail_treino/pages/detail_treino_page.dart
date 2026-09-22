@@ -3,8 +3,9 @@ import 'package:get/get.dart';
 import 'package:my_training/core/theme/app_colors.dart';
 import 'package:my_training/core/theme/app_dimensions.dart';
 import 'package:my_training/core/theme/app_typography.dart';
+import 'package:my_training/feature/detail_treino/controller/detail_treino_controller.dart';
 
-class DetailTreinoPage extends GetView {
+class DetailTreinoPage extends GetView<DetailTreinoController> {
   const DetailTreinoPage({super.key});
 
   @override
@@ -30,45 +31,81 @@ class DetailTreinoPage extends GetView {
               const SizedBox(height: AppDimensions.smallExtra),
               Expanded(
                 child: Column(
-                  spacing: AppDimensions.smallExtra,
                   children: [
-                    SizedBox(
-                      width: double.infinity,
-                      child: Card(
-                        key: const Key('card_exercices'),
-                        shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              side: BorderSide(color: AppColors.primary),
-                            ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: AppDimensions.medium,
-                            vertical: AppDimensions.mediumExtra,
-                          ),
-                          child: Text('Flexão', style: body,),
-                        ),
-                      ),
-                    ),
-                    Card(
-                      key: const Key('card_interval'),
-                      shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              side: BorderSide(color: AppColors.neutral[700]!),
-                            ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: AppDimensions.medium,
-                          vertical: AppDimensions.mediumExtra,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          spacing: AppDimensions.smallExtra,
-                          children: [
-                            Icon(Icons.alarm, color: AppColors.primary, size: 17.0),
-                            Text('1 min', style: body.copyWith(color: AppColors.primary),),
-                          ],
-                        ),
-                      ),
+                    Expanded(
+                      child: Obx(() {
+                        final treino = controller.treino.value;
+                        return ListView.separated(
+                          separatorBuilder:
+                              (BuildContext context, int index) =>
+                                  const SizedBox(height: 10.0),
+                          itemCount: treino!.exercises.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Expanded(
+                              child: Column(
+                                spacing: 10.0,
+                                children: [
+                                  SizedBox(
+                                    width: double.infinity,
+                                    child: Card(
+                                      key: const Key('card_exercices'),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                        side: BorderSide(
+                                          color: AppColors.primary,
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: AppDimensions.medium,
+                                          vertical: AppDimensions.mediumExtra,
+                                        ),
+                                        child: Text(
+                                          treino.exercises[index],
+                                          style: body,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Card(
+                                    key: const Key('card_interval'),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      side: BorderSide(
+                                        color: AppColors.neutral[700]!,
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: AppDimensions.medium,
+                                        vertical: AppDimensions.mediumExtra,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        spacing: AppDimensions.smallExtra,
+                                        children: [
+                                          Icon(
+                                            Icons.alarm,
+                                            color: AppColors.primary,
+                                            size: 17.0,
+                                          ),
+                                          Text(
+                                            '1 min',
+                                            style: body.copyWith(
+                                              color: AppColors.primary,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      }),
                     ),
                   ],
                 ),

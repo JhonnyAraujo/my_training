@@ -4,6 +4,7 @@ import 'package:my_training/core/models/treino_model.dart';
 import 'package:my_training/core/theme/theme.dart';
 import 'package:my_training/feature/criar_treino/binding/criar_treino_binding.dart';
 import 'package:my_training/feature/criar_treino/pages/criar_treino_page.dart';
+import 'package:my_training/feature/detail_treino/binding/detail_treino_binding.dart';
 import 'package:my_training/feature/detail_treino/pages/detail_treino_page.dart';
 import 'package:my_training/feature/home/controller/home_controller.dart';
 
@@ -61,12 +62,15 @@ class HomePage extends GetView<HomeController> {
                             ],
                           ),
                         ),
-
                         child: SizedBox(
                           width: double.infinity,
                           child: InkWell(
                             onTap: () {
-                              Get.to(const DetailTreinoPage());
+                              Get.to(
+                                const DetailTreinoPage(),
+                                arguments: treino.id,
+                                binding: DetailTreinoBinding()
+                              );
                             },
                             child: Card(
                               margin: EdgeInsets.zero,
